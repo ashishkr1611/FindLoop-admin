@@ -26,8 +26,54 @@ const SEED_USER = {
   createdAt: "2026-08-15T10:00:00Z"
 };
 
-const SEED_ITEMS = [];
-const SEED_REPORTS = [];
+const SEED_ITEMS = [
+  {
+    itemId: "item_calc_101",
+    ownerId: "usr_anshu_123",
+    itemCode: "FL-N86EN",
+    qrToken: "tok_calc_982",
+    itemName: "demooo",
+    category: "Electronics",
+    color: "Black",
+    description: "Scientific Calculator with name sticker on back.",
+    privateDetail: "Serial No. 991-882",
+    status: "LOST",
+    qrActive: true,
+    createdAt: "2026-09-14T10:00:00Z",
+    updatedAt: "2026-09-14T10:00:00Z"
+  },
+  {
+    itemId: "item_bottle_102",
+    ownerId: "usr_anshu_123",
+    itemCode: "FL-W77TK",
+    qrToken: "tok_bottle_112",
+    itemName: "Milton Water Bottle",
+    category: "Daily Essentials",
+    color: "Silver",
+    description: "Silver 1L bottle with blue strap.",
+    privateDetail: "Bottom has small dent",
+    status: "SAFE",
+    qrActive: true,
+    createdAt: "2026-09-14T11:00:00Z",
+    updatedAt: "2026-09-14T11:00:00Z"
+  }
+];
+
+const SEED_REPORTS = [
+  {
+    reportId: "rep_1789476673091",
+    itemId: "item_calc_101",
+    location: "Security Desk",
+    specificLocation: "Main Gate Guard Room",
+    foundTime: "2026-09-15T12:00:00Z",
+    handoverLocation: "Security Desk (Main Gate)",
+    message: "Found near CS Lab 3 desk.",
+    verificationCode: "482910",
+    status: "HANDOVER_READY",
+    createdAt: "2026-09-15T12:00:00Z"
+  }
+];
+
 const SEED_NOTIFICATIONS = [];
 const SEED_HISTORY = [];
 
@@ -36,24 +82,19 @@ function getStore() {
   if (data) {
     try {
       const parsed = JSON.parse(data);
-      if (parsed.items && parsed.items.some(i => i.itemId === "item_calc_1" || i.itemId === "item_bottle_2")) {
-        parsed.items = [];
-        parsed.reports = [];
-        parsed.notifications = [];
-        parsed.history = [];
-        localStorage.setItem("findloop_firestore_demo", JSON.stringify(parsed));
+      if (parsed.items && parsed.reports) {
+        return parsed;
       }
-      return parsed;
     } catch {
       localStorage.removeItem("findloop_firestore_demo");
     }
   }
   const init = {
     users: [SEED_USER],
-    items: [],
-    reports: [],
-    notifications: [],
-    history: []
+    items: [...SEED_ITEMS],
+    reports: [...SEED_REPORTS],
+    notifications: [...SEED_NOTIFICATIONS],
+    history: [...SEED_HISTORY]
   };
   localStorage.setItem("findloop_firestore_demo", JSON.stringify(init));
   return init;
@@ -315,12 +356,44 @@ export async function markNotificationRead(notifId) {
 }
 
 // 4. ADMIN STATS & MODERATION (100% Real Live Calculation)
-export async function getAdminStatsData() {
+export async function getAllReportsAdmin() {
+  if (db) {
+    try {
+      const snap = await getDocs(collection(db, "reports"));
+      const reports = [];
+      snap.forEach(doc => reports.push(doc.data()));
+      if (reports.length > 0) return reports;
+    } catch (e) {
+      console.warn("Firestore reports fetch note:", e);
+    }
+  }
   const store = getStore();
-  const totalItems = store.items.length;
-  const lostCount = store.items.filter((i) => i.status === "LOST").length;
-  const foundReports = store.reports.length;
-  const returnedItems = store.items.filter((i) => i.status === "RETURNED").length;
+  return store.reports;
+}
+
+export async function getAllItemsAdmin() {
+  if (db) {
+    try {
+      const snap = await getDocs(collection(db, "items"));
+      const items = [];
+      snap.forEach(doc => items.push(doc.data()));
+      if (items.length > 0) return items;
+    } catch (e) {
+      console.warn("Firestore items fetch note:", e);
+    }
+  }
+  const store = getStore();
+  return store.items;
+}
+
+export async function getAdminStatsData() {
+  const reports = await getAllReportsAdmin();
+  const items = await getAllItemsAdmin();
+
+  const totalItems = items.length;
+  const lostCount = items.filter((i) => i.status === "LOST").length;
+  const foundReports = reports.length;
+  const returnedItems = items.filter((i) => i.status === "RETURNED").length;
 
   const totalResolved = returnedItems + lostCount;
   const recoveryRate = totalResolved > 0 ? Math.round((returnedItems / totalResolved) * 100) : (totalItems > 0 ? 100 : 0);
@@ -332,14 +405,4 @@ export async function getAdminStatsData() {
     returnedItems,
     recoveryRate
   };
-}
-
-export async function getAllReportsAdmin() {
-  const store = getStore();
-  return store.reports;
-}
-
-export async function getAllItemsAdmin() {
-  const store = getStore();
-  return store.items;
 }
