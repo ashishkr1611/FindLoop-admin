@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Directory — Campus Admin</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body style="background-color: var(--bg-navy-dark); color: white;">
+  <div class="app-layout app-layout-dark">
+    <aside class="sidebar">
+      <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-dark);">
+        <a href="index.html" class="brand-logo" style="color: white;">
+          <div class="brand-icon" style="background-color: var(--accent-gold); color: #0F172A;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 22V12a6 6 0 1 1 12 0v10"></path></svg></div>
+          <div class="brand-text">Find<span style="color:var(--accent-gold);">Loop</span><span class="brand-sub" style="color:var(--accent-gold);">Campus Admin</span></div>
+        </a>
+      </div>
+      <nav style="flex: 1; padding: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
+        <a href="index.html" class="btn btn-navy" style="justify-content: flex-start;">📊 Overview</a>
+        <a href="items.html" class="btn btn-navy" style="justify-content: flex-start;">📦 Items Registry</a>
+        <a href="reports.html" class="btn btn-navy" style="justify-content: flex-start;">📩 Found Reports</a>
+        <a href="users.html" class="btn btn-amber" style="justify-content: flex-start;">👥 User Directory</a>
+        <a href="analytics.html" class="btn btn-navy" style="justify-content: flex-start;">📈 Analytics</a>
+        <a href="settings.html" class="btn btn-navy" style="justify-content: flex-start;">⚙️ Settings</a>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <div class="top-bar top-bar-dark">
+        <h1 style="font-size: 1.25rem; font-weight: 900; color: white;">Campus User Directory</h1>
+      </div>
+
+      <main class="content-body">
+        <div class="card-dark">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.8rem;">
+            <thead>
+              <tr style="border-bottom: 1px solid #334155; font-family: var(--font-mono); font-size: 0.7rem; color: #94A3B8; text-transform: uppercase;">
+                <th style="padding: 0.75rem;">Name</th>
+                <th style="padding: 0.75rem;">Email</th>
+                <th style="padding: 0.75rem;">Student ID</th>
+                <th style="padding: 0.75rem;">Role</th>
+                <th style="padding: 0.75rem; text-align: right;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid #334155;">
+                <td style="padding: 0.75rem; font-weight: 700;">Anshu Bala</td>
+                <td style="padding: 0.75rem; font-family: var(--font-mono);">anshubala@gehu.ac.in</td>
+                <td style="padding: 0.75rem; font-family: var(--font-mono); color: var(--accent-gold);">260122209</td>
+                <td style="padding: 0.75rem; text-transform: uppercase; font-weight: 700; font-size: 0.7rem;">User</td>
+                <td style="padding: 0.75rem; text-align: right;"><button class="btn btn-rose" style="padding: 0.25rem 0.625rem; font-size: 0.7rem;">Disable</button></td>
+              </tr>
+              <tr style="border-bottom: 1px solid #334155;">
+                <td style="padding: 0.75rem; font-weight: 700;">Campus Safety Admin</td>
+                <td style="padding: 0.75rem; font-family: var(--font-mono);">admin@campus.edu</td>
+                <td style="padding: 0.75rem; font-family: var(--font-mono); color: var(--accent-gold);">ADM-99</td>
+                <td style="padding: 0.75rem; text-transform: uppercase; font-weight: 700; font-size: 0.7rem; color: var(--accent-gold);">Admin</td>
+                <td style="padding: 0.75rem; text-align: right;"><button class="btn btn-outline" style="padding: 0.25rem 0.625rem; font-size: 0.7rem; color: white;">Active</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module">
+    import { requireAdmin } from "../js/auth.js";
+    requireAdmin();
+  </script>
+</body>
+</html>

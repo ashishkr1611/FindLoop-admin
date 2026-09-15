@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Admin Login — FindLoop</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body style="background-color: var(--bg-navy-dark); color: white; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem;">
+  <div style="width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 1.5rem; text-align: center;">
+    <a href="../index.html" class="brand-logo" style="justify-content: center; color: white;">
+      <div class="brand-icon" style="background-color: var(--accent-gold); color: #0F172A;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 22V12a6 6 0 1 1 12 0v10"></path><path d="M18 22H6"></path></svg>
+      </div>
+      <div class="brand-text">Find<span style="color: var(--accent-gold);">Loop</span></div>
+    </a>
+
+    <div>
+      <h2 style="font-size: 1.5rem; font-weight: 800;">Campus Dispatch Admin Login</h2>
+      <p style="font-size: 0.75rem; color: #94A3B8;">Authorized administrative access for university security & reception staff.</p>
+    </div>
+
+    <div class="card-dark" style="padding: 2rem; border-radius: 24px; text-align: left;">
+      <form id="admin-login-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <div class="form-group">
+          <label class="form-label form-label-dark" style="color: var(--accent-gold);">Admin Officer Email</label>
+          <input type="email" id="email" required value="admin@campus.edu" placeholder="admin@campus.edu" class="form-input form-input-dark">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label form-label-dark" style="color: var(--accent-gold);">Admin Password</label>
+          <input type="password" id="password" required value="admin123" placeholder="••••••••" class="form-input form-input-dark">
+        </div>
+
+        <button type="submit" class="btn btn-amber" style="padding: 0.875rem; border-radius: 12px; font-weight: 800; font-size: 0.95rem; margin-top: 0.5rem;">
+          Log In to Admin Portal →
+        </button>
+      </form>
+
+      <div style="background: #0B1120; border: 1px solid #334155; padding: 0.75rem; border-radius: 12px; margin-top: 1.25rem; font-size: 0.75rem; color: #94A3B8;">
+        <p style="color: var(--accent-gold); font-weight: 700; margin-bottom: 2px;">🔑 Pre-filled Admin Demo Credentials:</p>
+        <p>Email: <span style="color: white; font-family: var(--font-mono);">admin@campus.edu</span></p>
+        <p>Password: <span style="color: white; font-family: var(--font-mono);">admin123</span></p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { logInUser } from "../js/auth.js";
+
+    document.getElementById("admin-login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      await logInUser(email, password);
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>

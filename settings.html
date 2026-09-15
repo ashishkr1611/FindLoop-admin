@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Settings — FindLoop</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body style="background-color: var(--bg-navy-dark); color: white;">
+  <div class="app-layout app-layout-dark">
+    <aside class="sidebar">
+      <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-dark);">
+        <a href="index.html" class="brand-logo" style="color: white;">
+          <div class="brand-icon" style="background-color: var(--accent-gold); color: #0F172A;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 22V12a6 6 0 1 1 12 0v10"></path></svg></div>
+          <div class="brand-text">Find<span style="color:var(--accent-gold);">Loop</span><span class="brand-sub" style="color:var(--accent-gold);">Campus Admin</span></div>
+        </a>
+      </div>
+      <nav style="flex: 1; padding: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
+        <a href="index.html" class="btn btn-navy" style="justify-content: flex-start;">📊 Overview</a>
+        <a href="items.html" class="btn btn-navy" style="justify-content: flex-start;">📦 Items Registry</a>
+        <a href="reports.html" class="btn btn-navy" style="justify-content: flex-start;">📩 Found Reports</a>
+        <a href="users.html" class="btn btn-navy" style="justify-content: flex-start;">👥 User Directory</a>
+        <a href="analytics.html" class="btn btn-navy" style="justify-content: flex-start;">📈 Analytics</a>
+        <a href="settings.html" class="btn btn-amber" style="justify-content: flex-start;">⚙️ Settings</a>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <div class="top-bar top-bar-dark">
+        <h1 style="font-size: 1.25rem; font-weight: 900; color: white;">Campus System Configuration</h1>
+      </div>
+
+      <main class="content-body" style="max-width: 600px;">
+        <div class="card-dark" style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <h3 style="font-size: 1rem; font-weight: 800; color: var(--accent-gold);">Institutional Settings</h3>
+
+          <div class="form-group">
+            <label class="form-label form-label-dark">Campus System Name</label>
+            <input type="text" value="State University Main Campus" class="form-input form-input-dark">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label form-label-dark">Unclaimed Report Retention (Days)</label>
+            <input type="number" value="90" class="form-input form-input-dark">
+          </div>
+
+          <button class="btn btn-amber" style="padding: 0.875rem; border-radius: 12px; font-weight: 800;" onclick="alert('Settings saved successfully!')">
+            Save Campus Configuration
+          </button>
+        </div>
+
+        <!-- Google Forms & Sheets Research Integration Card -->
+        <div class="card-dark" style="display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.5rem;">
+          <h3 style="font-size: 1rem; font-weight: 800; color: #38BDF8;">📋 Research & Usability Survey (Google Forms + Sheets)</h3>
+          <p style="font-size: 0.8rem; color: #94A3B8;">Collect student feedback and survey data for your Design Thinking project directly via Google Forms linked to Google Sheets.</p>
+
+          <div class="form-group">
+            <label class="form-label form-label-dark">Google Form Survey URL</label>
+            <input type="url" id="google-form-url" value="https://forms.google.com/" placeholder="https://docs.google.com/forms/d/e/..." class="form-input form-input-dark">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label form-label-dark">Google Sheets Responses URL</label>
+            <input type="url" id="google-sheet-url" value="https://docs.google.com/spreadsheets/" placeholder="https://docs.google.com/spreadsheets/d/..." class="form-input form-input-dark">
+          </div>
+
+          <button id="save-survey-urls-btn" class="btn btn-primary" style="padding: 0.875rem; border-radius: 12px; font-weight: 800; font-size: 0.875rem; width: 100%;">
+            💾 Save Survey & Sheet URLs
+          </button>
+
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a id="btn-open-form" href="https://forms.google.com/" target="_blank" class="btn btn-outline" style="flex: 1; justify-content: center; padding: 0.75rem; border-radius: 12px; font-size: 0.8rem;">
+              📝 Open Google Form
+            </a>
+            <a id="btn-open-sheet" href="https://docs.google.com/spreadsheets/" target="_blank" class="btn btn-outline" style="flex: 1; justify-content: center; padding: 0.75rem; border-radius: 12px; font-size: 0.8rem;">
+              📊 View Google Sheet Responses
+            </a>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module">
+    import { requireAdmin } from "../js/auth.js";
+    import { showToast } from "../js/utils.js";
+    requireAdmin();
+
+    const formInput = document.getElementById("google-form-url");
+    const sheetInput = document.getElementById("google-sheet-url");
+    const btnForm = document.getElementById("btn-open-form");
+    const btnSheet = document.getElementById("btn-open-sheet");
+    const saveBtn = document.getElementById("save-survey-urls-btn");
+
+    // Load saved URLs
+    const savedForm = localStorage.getItem("findloop_google_form_url");
+    const savedSheet = localStorage.getItem("findloop_google_sheet_url");
+
+    if (savedForm) {
+      formInput.value = savedForm;
+      btnForm.href = savedForm;
+    }
+    if (savedSheet) {
+      sheetInput.value = savedSheet;
+      btnSheet.href = savedSheet;
+    }
+
+    saveBtn.addEventListener("click", () => {
+      const fUrl = formInput.value.trim();
+      const sUrl = sheetInput.value.trim();
+
+      if (fUrl) {
+        localStorage.setItem("findloop_google_form_url", fUrl);
+        btnForm.href = fUrl;
+      }
+      if (sUrl) {
+        localStorage.setItem("findloop_google_sheet_url", sUrl);
+        btnSheet.href = sUrl;
+      }
+
+      showToast("Survey & Sheet URLs saved successfully!");
+      alert("Survey & Sheet URLs saved successfully!");
+    });
+  </script>
+</body>
+</html>
