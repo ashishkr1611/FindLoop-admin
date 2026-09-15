@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Item Audit — FindLoop</title>
-  <link rel="stylesheet" href="../css/global.css">
-  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body style="background-color: var(--bg-navy-dark); color: white;">
   <div class="app-layout app-layout-dark">
@@ -48,9 +48,9 @@
   </div>
 
   <script type="module">
-    import { requireAdmin } from "../js/auth.js";
-    import { getItemByIdOrToken } from "../js/firestore.js";
-    import { getQueryParam } from "../js/utils.js";
+    import { requireAdmin } from "./js/auth.js";
+    import { getItemByIdOrToken } from "./js/firestore.js";
+    import { getQueryParam } from "./js/utils.js";
 
     requireAdmin();
     const itemId = getQueryParam("id");
