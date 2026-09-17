@@ -1,24 +1,130 @@
-/* Responsive Stylesheet for FindLoop (Mobile, Tablet, Desktop) */
+/* FindLoop Official Master Responsive Stylesheet
+   Covers screen sizes: 320px, 360px, 375px, 390px, 414px, 430px, 480px,
+   600px, 768px, 820px, 1024px, 1280px, 1440px, 1600px, 1920px+
+*/
 
-/* Dashboard Layout Structure */
+/* --------------------------------------------------
+   1. GLOBAL RESET & FLUID CONTAINERS
+   -------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  width: 100%;
+  min-width: 320px;
+  overflow-x: hidden;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  line-height: 1.5;
+  color: var(--text-main, #0F172A);
+  background-color: var(--bg-main, #F8FAFC);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+img, svg, video, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Fluid Container Utility */
+.container {
+  width: min(100% - 32px, 1200px);
+  margin-inline: auto;
+}
+
+.container-narrow {
+  width: min(100% - 32px, 760px);
+  margin-inline: auto;
+}
+
+/* Responsive Table Wrapper */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1rem;
+}
+
+/* Touch Target Minimum Enforcement */
+button, input, select, textarea, .btn, .nav-links a, .mobile-nav-item, .brand-logo {
+  min-height: 44px;
+  touch-action: manipulation;
+}
+
+input, select, textarea {
+  font-size: 16px !important; /* Prevents auto-zoom on iOS safari */
+}
+
+/* --------------------------------------------------
+   2. FLUID TYPOGRAPHY & SPACING
+   -------------------------------------------------- */
+h1, .h1 {
+  font-size: clamp(1.75rem, 4vw + 1rem, 3.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+h2, .h2 {
+  font-size: clamp(1.35rem, 3vw + 0.5rem, 2.25rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+h3, .h3 {
+  font-size: clamp(1.1rem, 2vw + 0.3rem, 1.5rem);
+  line-height: 1.3;
+}
+
+p, body {
+  font-size: clamp(0.875rem, 1.2vw + 0.5rem, 1rem);
+}
+
+.content-body {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+/* --------------------------------------------------
+   3. APP & ADMIN LAYOUT STRUCTURE
+   -------------------------------------------------- */
 .app-layout {
   display: flex;
   min-height: 100vh;
-  background-color: var(--bg-main);
+  width: 100%;
+  background-color: var(--bg-main, #F8FAFC);
 }
 
 .app-layout-dark {
-  background-color: var(--bg-navy-dark);
+  background-color: var(--bg-navy-dark, #0F172A);
 }
 
 .sidebar {
   width: 260px;
-  background-color: var(--bg-navy-dark);
-  border-right: 1px solid var(--border-dark);
-  color: var(--text-light);
+  background-color: var(--bg-navy-dark, #0F172A);
+  border-right: 1px solid var(--border-dark, #334155);
+  color: var(--text-light, #94A3B8);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 30;
 }
 
 .main-content {
@@ -27,33 +133,104 @@
   flex-direction: column;
   min-width: 0;
   overflow-y: auto;
+  width: 100%;
 }
 
 .top-bar {
-  background-color: var(--bg-white);
-  border-bottom: 1px solid var(--border-light);
+  background-color: var(--bg-white, #FFFFFF);
+  border-bottom: 1px solid var(--border-light, #E2E8F0);
   padding: 1rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
   position: sticky;
   top: 0;
   z-index: 20;
 }
 
 .top-bar-dark {
-  background-color: var(--bg-navy-dark);
-  border-color: var(--border-dark);
+  background-color: var(--bg-navy-dark, #0F172A);
+  border-color: var(--border-dark, #334155);
 }
 
-.content-body {
-  padding: 1.5rem;
-  max-width: 1200px;
+/* --------------------------------------------------
+   4. NAVIGATION & MOBILE HAMBURGER MENU
+   -------------------------------------------------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light, #E2E8F0);
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  margin: 0 auto;
+  gap: 1rem;
 }
 
-/* Mobile Navigation Bar */
+.hamburger-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--text-main, #0F172A);
+  padding: 8px;
+  cursor: pointer;
+  border-radius: var(--radius-sm, 8px);
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger-toggle svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+}
+
+/* Mobile Dropdown / Drawer Overlay */
+.mobile-menu-overlay {
+  display: none;
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-navy-dark, #0F172A);
+  border-bottom: 1px solid var(--border-dark, #334155);
+  padding: 1.5rem;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 45;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.mobile-menu-overlay.is-active {
+  display: flex;
+}
+
+.mobile-menu-overlay a {
+  color: #FFFFFF;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md, 12px);
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Mobile Bottom Navigation Bar */
 .mobile-bottom-nav {
   display: none;
   position: fixed;
@@ -61,28 +238,100 @@
   left: 0;
   right: 0;
   z-index: 40;
-  background-color: var(--bg-navy-dark);
-  border-top: 1px solid var(--border-dark);
-  padding: 8px 16px;
+  background-color: var(--bg-navy-dark, #0F172A);
+  border-top: 1px solid var(--border-dark, #334155);
+  padding: 8px 12px;
   justify-content: space-around;
+  box-shadow: 0 -10px 25px rgba(0,0,0,0.3);
 }
 
 .mobile-nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 3px;
   font-size: 11px;
   font-weight: 600;
-  color: var(--text-light);
+  color: var(--text-light, #94A3B8);
+  flex: 1;
+  text-align: center;
+  min-height: 44px;
 }
 
 .mobile-nav-item.active {
-  color: var(--teal-light);
+  color: var(--teal-light, #14B8A6);
 }
 
-/* Media Queries */
-@media (max-width: 768px) {
+/* --------------------------------------------------
+   5. GRID UTILITIES & RESPONSIVE CARDS
+   -------------------------------------------------- */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+.grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; }
+
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+/* --------------------------------------------------
+   6. QR TAG & VERIFICATION CODE DISPLAY
+   -------------------------------------------------- */
+.qr-container-box {
+  width: min(80vw, 320px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.verification-code-display {
+  font-size: clamp(28px, 8vw, 48px);
+  font-family: var(--font-mono, monospace);
+  font-weight: 900;
+  color: var(--accent-gold, #F59E0B);
+  letter-spacing: 2px;
+  word-break: break-all;
+  text-align: center;
+}
+
+/* --------------------------------------------------
+   7. MEDIA QUERIES (BREAKPOINTS)
+   -------------------------------------------------- */
+
+/* Desktop Large (>= 1440px) */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+/* Tablet / Medium Screens (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebar {
+    width: 200px;
+  }
+  
+  .grid-4, .grid-5 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  .top-bar {
+    padding: 1rem;
+  }
+}
+
+/* Mobile & Small Screens (< 768px) */
+@media (max-width: 767px) {
   .sidebar {
     display: none;
   }
@@ -91,26 +340,96 @@
     display: flex;
   }
 
-  .content-body {
-    padding-bottom: 80px; /* Space for bottom nav */
+  .hamburger-toggle {
+    display: inline-flex;
   }
 
   .nav-links {
     display: none;
   }
 
-  .grid-2, .grid-3, .grid-4 {
+  .content-body {
+    padding: 1rem 0.875rem 90px 0.875rem;
+  }
+
+  .container, .container-narrow {
+    width: min(100% - 24px, 1200px);
+    padding: 0;
+  }
+
+  .grid-2, .grid-3, .grid-4, .grid-5, .item-grid {
     grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+
+  .form-group {
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
+
+  .nav-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.875rem 1rem;
+  }
+
+  .modal-card {
+    width: calc(100% - 24px) !important;
+    max-height: calc(100vh - 24px) !important;
+    overflow-y: auto !important;
+    margin: 12px !important;
+    padding: 1.25rem !important;
+  }
+
+  .card-dark table, .card table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  .qr-action-buttons {
+    flex-direction: column !important;
+    width: 100%;
+  }
+
+  .qr-action-buttons .btn {
+    width: 100%;
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  .grid-4 {
-    grid-template-columns: repeat(2, 1fr) !important;
+/* Extra Small Screens (320px to 480px) */
+@media (max-width: 480px) {
+  h1, .h1 {
+    font-size: 1.65rem;
+  }
+
+  h2, .h2 {
+    font-size: 1.25rem;
+  }
+
+  .card-dark, .card {
+    padding: 1rem;
+    border-radius: 16px;
+  }
+
+  .brand-text {
+    font-size: 1.1rem;
+  }
+
+  .brand-sub {
+    display: none;
   }
 }
-
-/* Grid Utilities */
-.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }

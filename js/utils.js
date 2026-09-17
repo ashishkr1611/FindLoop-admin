@@ -96,3 +96,42 @@ export function getGreeting() {
   if (hour >= 12 && hour < 17) return "Good afternoon";
   return "Good evening";
 }
+
+// Universal Mobile Menu Accessibility Handler
+export function initMobileMenu() {
+  const btn = document.getElementById("hamburger-btn");
+  const menu = document.getElementById("mobile-menu-overlay") || document.querySelector(".nav-links");
+  if (!btn || !menu) return;
+
+  function toggleMenu(open) {
+    const isExpanded = open !== undefined ? open : btn.getAttribute("aria-expanded") !== "true";
+    btn.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+    menu.classList.toggle("is-active", isExpanded);
+    document.body.classList.toggle("mobile-menu-open", isExpanded);
+  }
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  document.addEventListener("click", (e) => {
+    if (btn.getAttribute("aria-expanded") === "true" && !menu.contains(e.target) && !btn.contains(e.target)) {
+      toggleMenu(false);
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") {
+      toggleMenu(false);
+    }
+  });
+}
+
+if (typeof window !== "undefined") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMobileMenu);
+  } else {
+    initMobileMenu();
+  }
+}
