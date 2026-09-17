@@ -29,13 +29,7 @@ export function getCurrentUser() {
       return null;
     }
   }
-  return {
-    uid: "usr_admin_default",
-    name: "Campus Safety Admin",
-    email: "admin@campus.edu",
-    studentId: "ADM-99",
-    role: "admin"
-  };
+  return null;
 }
 
 // Auto-sync Firebase auth state with local storage session if Firebase initialized
