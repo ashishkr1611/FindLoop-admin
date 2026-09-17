@@ -40,6 +40,8 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #0F172A;
+  min-height: 100%;
 }
 
 @keyframes pulse-glow {
@@ -81,7 +83,7 @@ html {
 }
 
 body {
-  background-color: var(--bg-main);
+  background-color: #0F172A;
   color: var(--text-main);
   font-family: var(--font-sans);
   line-height: 1.5;
