@@ -32,7 +32,7 @@ const SEED_ITEMS = [
     ownerId: "usr_anshu_123",
     itemCode: "FL-N86EN",
     qrToken: "tok_calc_982",
-    itemName: "demooo",
+    itemName: "Casio Scientific Calculator",
     category: "Electronics",
     color: "Black",
     description: "Scientific Calculator with name sticker on back.",
@@ -41,6 +41,21 @@ const SEED_ITEMS = [
     qrActive: true,
     createdAt: "2026-09-14T10:00:00Z",
     updatedAt: "2026-09-14T10:00:00Z"
+  },
+  {
+    itemId: "item_demo_103",
+    ownerId: "usr_anshu_123",
+    itemCode: "FL-8X92K",
+    qrToken: "tok_demo_8x92k",
+    itemName: "Apple AirPods Pro Case",
+    category: "Electronics",
+    color: "White",
+    description: "White charging case with red silicone cover.",
+    privateDetail: "Initials AB written inside lid",
+    status: "LOST",
+    qrActive: true,
+    createdAt: "2026-09-15T10:00:00Z",
+    updatedAt: "2026-09-15T10:00:00Z"
   },
   {
     itemId: "item_bottle_102",
