@@ -120,8 +120,10 @@ p, body {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  bottom: 0;
   height: 100vh;
   overflow-y: auto;
   z-index: 30;
@@ -129,11 +131,11 @@ p, body {
 
 .main-content {
   flex: 1;
+  margin-left: 260px;
+  width: calc(100% - 260px);
   display: flex;
   flex-direction: column;
   min-width: 0;
-  overflow-y: auto;
-  width: 100%;
 }
 
 .top-bar {
@@ -334,6 +336,11 @@ p, body {
 @media (max-width: 767px) {
   .sidebar {
     display: none;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
   }
 
   .mobile-bottom-nav {
