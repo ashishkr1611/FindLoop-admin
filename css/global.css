@@ -155,8 +155,15 @@ button, input, select, textarea {
   justify-content: center;
 }
 
-.brand-text span {
+.brand-text {
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.brand-text span:not(.brand-sub) {
   color: var(--primary-teal);
+  margin-left: 0;
+  padding-left: 0;
 }
 
 .brand-sub {
