@@ -156,14 +156,28 @@ button, input, select, textarea {
 }
 
 .brand-text {
-  letter-spacing: -0.02em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.1;
   white-space: nowrap;
 }
 
-.brand-text span:not(.brand-sub) {
-  color: var(--primary-teal);
-  margin-left: 0;
-  padding-left: 0;
+.brand-name {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+}
+
+.brand-name span, .brand-text span:not(.brand-sub) {
+  color: var(--teal-light, #14B8A6);
+  margin-left: 0 !important;
+  padding-left: 0 !important;
 }
 
 .brand-sub {
@@ -172,7 +186,7 @@ button, input, select, textarea {
   letter-spacing: 0.5px;
   color: var(--text-muted);
   font-weight: 600;
-  margin-top: 0px;
+  margin-top: 2px;
 }
 
 .nav-links {
